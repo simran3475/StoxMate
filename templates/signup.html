@@ -91,25 +91,9 @@
         }
     </style>
 
-    
-    <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js"></script>
 
     <script>
         
-        const firebaseConfig = {
-            apiKey: "AIzaSyD4NeQWAY3SG5b0YLt5DS1Q3zAXB-imLhI", 
-            authDomain: "stock-predictor-3fc23.firebaseapp.com", 
-            projectId: "stock-predictor-3fc23",
-            storageBucket: "stock-predictor-3fc23.appspot.com",
-            messagingSenderId: "301258227915",
-            appId: "1:301258227915:web:7c8850e993a10115e11b4e"
-        };
-        
-       
-        const app = firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-
         function validateForm() {
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
@@ -141,68 +125,7 @@
             }
 
             return true;
-        }
-
-        function signUpWithFirebase(event) {
-            event.preventDefault(); 
-
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const contact = document.getElementById('contact').value;
-            const pan = document.getElementById('pan').value;
-
-            if (validateForm()) {
-                
-                fetch('/submit_signup', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ name, email, contact, pan })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        
-                        document.getElementById('otp-input').style.display = 'block';
-                    } else {
-                        alert('Error: ' + data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            }
-        }
-
-        function verifyOtp(event) {
-            event.preventDefault(); 
-
-            const otp = document.getElementById('otp').value;
-
-           
-            fetch('/verify_otp', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ otp })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('OTP verified successfully! Welcome, ' + name + '!');
-                    setTimeout(() => {
-                        window.location.href = 'http://localhost:8501'; 
-                        }, 1000);
-                } else {
-                    alert('Invalid OTP!');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }
+        }        
     </script>
 </head>
 <body>
